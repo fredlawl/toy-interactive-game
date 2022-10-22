@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include <err.h>
-#include <linux/limits.h>
 #include <string.h>
 
 #include "limits.h"

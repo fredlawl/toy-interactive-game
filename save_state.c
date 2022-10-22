@@ -1,6 +1,5 @@
 #include <stddef.h>
 #include <stdio.h>
-#include <linux/limits.h>
 #include <string.h>
 #include <err.h>
 
