@@ -51,17 +51,17 @@ int __print_menu()
 
 void __print_turn(const struct game_data *state)
 {
-    int select_player = state->turn % state->players->no_players;
+    int select_player = state->turn % state->num_players;
     printf("turn: %d\n", state->turn);
-    printf("player: %s\n\n", state->players->players + select_player * state->players->namelen);
+    printf("player: %s\n\n", (state->players + select_player)->name);
 }
 
 void __print_players(const struct game_data *state)
 {
-    char *player = (char *) state->players;
+    struct player *player = state->players;
     printf("List of players:\n");
-    for (int i = 1; i <= state->players->no_players; i++) {
-        printf("%d. %s\n", i, player + ((i - 1) * state->players->namelen));
+    for (int i = 1; i <= state->num_players; i++) {
+        printf("%d. %s\n", i, (player + (i - 1))->name);
     }
     printf("\n");
 }
@@ -71,7 +71,7 @@ const struct state *game_state_during()
     int err;
     int i;
     int num_of_players;
-    char *player;
+    struct player *player;
 
     char input_buff[INPUT_BUFF_LEN] = {0};
     int cmd = START;
@@ -91,12 +91,12 @@ const struct state *game_state_during()
             return NULL;
         }
         
-        i = game_data->players->no_players;
-        player = game_data->players->players;
+        i = game_data->num_players;
+        player = game_data->players + i;
         do {
             memset(input_buff, 0, INPUT_BUFF_LEN);
-            prompt_strf(input_buff, INPUT_BUFF_LEN, "Player %d Name:", game_data->players->no_players - i + 1);
-            memcpy(player + (game_data->players->no_players - i) * game_data->players->namelen, input_buff, game_data->players->namelen);
+            prompt_strf(input_buff, INPUT_BUFF_LEN, "Player %d Name:", game_data->num_players - i + 1);
+            memcpy((player - i)->name, input_buff, sizeof(player->name));
         } while (--i);
     }
 

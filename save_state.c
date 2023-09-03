@@ -30,7 +30,7 @@ const struct state *save_state_during()
         prompt_str(input_buff, PATH_MAX);
 
         // does file already exists? prompt_tristatef y/n to overwrite
-        err = game_data_save(input_buff, game_data);
+        err = game_data_save(game_data, input_buff);
 
     } while(err);
 
