@@ -90,7 +90,7 @@ const struct state *game_state_during()
         if (err) {
             return NULL;
         }
-        
+
         i = game_data->num_players;
         player = game_data->players + i;
         do {

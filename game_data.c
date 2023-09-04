@@ -13,11 +13,11 @@
 struct game_data *game_data = NULL;
 
 struct __attribute__((packed)) save_file_header {
-    u_int8_t signature[8];
-    u_int8_t major_version;
-    u_int8_t minor_version;
-    u_int16_t reserved;
-    u_int32_t reserved2;
+    uint8_t signature[8];
+    uint8_t major_version;
+    uint8_t minor_version;
+    uint16_t reserved;
+    uint32_t reserved2;
 };
 
 struct __attribute__((packed)) save_file_data {
@@ -32,7 +32,7 @@ struct __attribute__((packed)) save_file_data {
     uint32_t _r1;
 
     uint8_t player_names_offset; // location of player names
-    // fill ous rest of the 64bits 
+                                 // fill ous rest of the 64bits 
     uint8_t _r2;
     uint16_t _r3;
     uint32_t _r4;
@@ -85,7 +85,7 @@ void game_data_destroy(struct game_data *data)
  * this translation two separate the two concepts.
  */
 static void __game_data_to_save_data(const struct game_data *data,
-                                     struct save_file_data *save_data)
+        struct save_file_data *save_data)
 {
     save_data->date_created = data->date_created;
     save_data->date_last_played = data->date_last_played;
@@ -100,7 +100,7 @@ static void __game_data_to_save_data(const struct game_data *data,
 }
 
 static void __save_data_to_game_data(const struct save_file_data  *save_data,
-                                     struct game_data *data)
+        struct game_data *data)
 {
     data->date_created = save_data->date_created;
     data->date_last_played = save_data->date_last_played;
@@ -127,16 +127,16 @@ error_t game_data_save(const struct game_data *data, char *file)
         err = FILE_EWRITE;
         goto out;
     }
-    
+
     bytes_written = fwrite(&save_data, sizeof(save_data), 1, f);
     if (bytes_written == 0 || ferror(f)) {
         err = FILE_EWRITE;
         goto out;
     }
 
-    bytes_written = fwrite(game_data->players,
-                           game_data->num_players * 
-                           sizeof(*game_data->players), 1, f);
+    bytes_written = fwrite(data->players,
+            data->num_players * 
+            sizeof(*data->players), 1, f);
     if (!bytes_written || ferror(f)) {
         err = FILE_EWRITE;
         goto out;
@@ -149,9 +149,10 @@ out:
 
 static bool is_valid(const struct save_file_header *header)
 {
-    return  memcmp(header->signature, save_header.signature, sizeof(save_header.signature)) == 0 &&
-            (header->major_version == save_header.major_version) &&
-            (header->minor_version == save_header.minor_version);
+    return  memcmp(header->signature, save_header.signature,
+            sizeof(save_header.signature)) == 0 &&
+        (header->major_version == save_header.major_version) &&
+        (header->minor_version == save_header.minor_version);
 }
 
 error_t game_data_load(char *file, struct game_data **data)
