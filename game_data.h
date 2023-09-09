@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <time.h>
 
-#include "error.h"
+#include "gerror.h"
 
 #define PLAYER_NAME_BUFF_LEN 64
 
@@ -22,9 +22,9 @@ struct game_data {
 
 extern struct game_data *game_data;
 
-error_t game_data_init(int no_players, struct game_data **data);
+gerror_t game_data_init(int no_players, struct game_data **data);
 void game_data_destroy(struct game_data *data);
-error_t game_data_save(const struct game_data *data, char *file);
-error_t game_data_load(char *file, struct game_data **data);
+gerror_t game_data_save(const struct game_data *data, char *file);
+gerror_t game_data_load(char *file, struct game_data **data);
 
 #endif

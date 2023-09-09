@@ -57,7 +57,7 @@ void prompt_strf(char *dest, const size_t destlen, const char *fmt, ...)
     }
 }
 
-error_t prompt_numberf(void *dest, char *buff, const size_t bufflen, const char* numfmt, const char *fmt, ...)
+gerror_t prompt_numberf(void *dest, char *buff, const size_t bufflen, const char* numfmt, const char *fmt, ...)
 {
     char *input = NULL;
     int err;

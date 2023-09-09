@@ -1,6 +1,6 @@
 CC := gcc
 CFLAGS := -g -Wall -Wextra
-OBJECTS := main.o prompt.o game_data.o start_state.o exit_state.o save_state.o load_state.o game_state.o error.o
+OBJECTS := main.o prompt.o game_data.o start_state.o exit_state.o save_state.o load_state.o game_state.o gerror.o settings.o
 
 .PHONY: all
 all: main

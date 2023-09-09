@@ -1,4 +1,5 @@
-#include "error.h"
+#include "gerror.h"
+#include <stdint.h>
 
 static const char* ERROR_MESSAGES[] = {
     [FILE_EOPEN] = "File could not be opened",
@@ -15,7 +16,7 @@ static const char* ERROR_MESSAGES[] = {
 };
 
 
-const char* err_to_msg(error_t err)
+const char* err_to_msg(gerror_t err)
 {
     if (err >= ERROR_COUNT || err < 1) {
         return "Invalid error";

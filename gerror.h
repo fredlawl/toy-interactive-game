@@ -1,5 +1,9 @@
-#ifndef _ERROR_H
-#define _ERROR_H
+#ifndef _GERROR_H
+#define _GERROR_H
+
+#include <errno.h>
+#include <error.h>
+#include <err.h>
 
 #define ERR_FMT "%s: %s\n"
 
@@ -20,8 +24,9 @@ enum error {
     ERROR_COUNT
 };
 
-typedef enum error error_t;
+typedef enum error gerror_t;
+typedef int error_t;
 
-const char* err_to_msg(error_t err);
+const char* err_to_msg(gerror_t err);
 
 #endif

@@ -46,7 +46,7 @@ static struct save_file_header save_header = {
     .reserved2 = 0
 };
 
-error_t game_data_init(int num_players, struct game_data **data)
+gerror_t game_data_init(int num_players, struct game_data **data)
 {
     time_t now = time(NULL);
     struct game_data *game_data;
@@ -85,7 +85,7 @@ void game_data_destroy(struct game_data *data)
  * this translation two separate the two concepts.
  */
 static void __game_data_to_save_data(const struct game_data *data,
-        struct save_file_data *save_data)
+        struct game_save_data *save_data)
 {
     save_data->date_created = data->date_created;
     save_data->date_last_played = data->date_last_played;
@@ -108,7 +108,7 @@ static void __save_data_to_game_data(const struct save_file_data  *save_data,
     data->num_players = save_data->num_players;
 }
 
-error_t game_data_save(const struct game_data *data, char *file)
+gerror_t game_data_save(const struct game_data *data, char *file)
 {
     int err = 0;
     FILE *f;
@@ -155,7 +155,7 @@ static bool is_valid(const struct save_file_header *header)
         (header->minor_version == save_header.minor_version);
 }
 
-error_t game_data_load(char *file, struct game_data **data)
+gerror_t game_data_load(char *file, struct game_data **data)
 {
     time_t now = time(NULL);
     int err = 0;
